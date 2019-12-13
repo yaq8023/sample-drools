@@ -1,0 +1,32 @@
+package rules.cashflow
+import com.fintech.modules.drools.example.cashflow.entity.*;
+dialect  "mvel"
+
+rule "Increase balance for AccountPeriod Credits"
+when
+   ap : AccountPeriod( )
+   $acc : Account( )
+   cf : CashFlow( type == CashFlowType.CREDIT,
+             accountNo == $acc.accountNo,
+             date >= ap.start && <= ap.end )
+then
+   $acc.balance = $acc.balance + cf.amount;
+end
+
+rule "Decrease balance for AccountPeriod Debits"
+when
+   ap : AccountPeriod( )
+   $acc : Account( )
+   cf : CashFlow( type == CashFlowType.DEBIT, accountNo == $acc.accountNo, date >= ap.start && <= ap.end )
+then
+   $acc.balance = $acc.balance - cf.amount;
+end
+
+rule "Print blance for AccountPeriod" salience -50
+when
+       ap : AccountPeriod()
+       $acc : Account( )
+then
+       System.out.println("规则中打印日志：校验通过!");
+       System.out.printf("Account Number:%s, balance:%f \n",$acc.accountNo,$acc.balance);
+end

@@ -1,0 +1,11 @@
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <kbase name="PostCodeCheckKB" packages="rules.address">
+        <ksession name="PostCodeCheckKS" type="stateless"/>
+    </kbase>
+    <kbase name="CashFlowKB" packages="rules.cashflow">
+        <ksession name="CashFlowKS" type="stateless"/>
+    </kbase>
+    <kbase name="DecisionTableKB" packages="rules.decisiontable">
+        <ksession name="DecisionTableKS" type="stateless"/>
+    </kbase>
+</kmodule>
